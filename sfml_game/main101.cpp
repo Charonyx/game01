@@ -4,7 +4,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1080, 720), "Game from scratch!");
+	sf::RenderWindow window(sf::VideoMode(1080, 720), "FILA-KUNG");
 
 	////// Circle
 	sf::CircleShape collision(100.f);
@@ -13,7 +13,7 @@ int main()
 
 	////// Texture
 	sf::Texture playerTexture;
-	if (!playerTexture.loadFromFile("res/img/cat."))
+	if (!playerTexture.loadFromFile("img/cat.JPG"))
 	{
 		std::cout << "Load failed" << std::endl;
 	}
