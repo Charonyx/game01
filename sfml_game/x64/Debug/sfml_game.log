@@ -1,5 +1,2 @@
 ﻿  main101.cpp
-C:\Users\chura\source\repos\sfml_game\sfml_game\main101.cpp(10,37): error C2664: 'sf::RectangleShape::RectangleShape(sf::RectangleShape &&)': cannot convert argument 1 from 'float' to 'const sf::Vector2f &'
-C:\Users\chura\source\repos\sfml_game\sfml_game\main101.cpp(10,37): message : Reason: cannot convert from 'float' to 'const sf::Vector2f'
-C:\Users\chura\source\repos\sfml_game\sfml_game\main101.cpp(10,37): message : No constructor could take the source type, or constructor overload resolution was ambiguous
-D:\Users\onn\SFML-2.5.1\include\SFML\Graphics\RectangleShape.hpp(51,5): message : see declaration of 'sf::RectangleShape::RectangleShape'
+  sfml_game.vcxproj -> C:\Users\chura\source\repos\sfml_game\x64\Debug\sfml_game.exe
