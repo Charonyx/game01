@@ -23,10 +23,10 @@ int main()
 	collision.setPosition({ 200.f, 200.f });
 	collision.setFillColor(sf::Color::Blue);
 
-	//sf::RectangleShape bg_yard1(sf::Vector2f(0, 0));
-	//sf::Texture bg_yard;
-	//bg_yard.loadFromFile("img/bg_yard.jpg");
-	//bg_yard1.setTexture(&bg_yard);
+	sf::RectangleShape bg_yard1(sf::Vector2f(0, 0));
+	sf::Texture bg_yard;
+	bg_yard.loadFromFile("img/bg_yard.jpg");
+	bg_yard1.setTexture(&bg_yard);
 
 	sf::RectangleShape b0(sf::Vector2f(0,0));
 	sf::Texture floor;
@@ -44,17 +44,19 @@ int main()
 //	platforms.push_back(Platform(&floor, sf::Vector2f(100.0f, 50.0f), sf::Vector2f(600.0f, 250.0f)));
 	platforms.push_back(Platform(&floor, sf::Vector2f(100.0f, 50.0f), sf::Vector2f(200.0f, 70.0f)));
 	platforms.push_back(Platform(&floor, sf::Vector2f(100.0f, 50.0f), sf::Vector2f(300.0f, 250.0f)));
-	platforms.push_back(Platform(&floor, sf::Vector2f(100.0f, 50.0f), sf::Vector2f(700.0f, 300.0f)));
+	//platforms.push_back(Platform(&floor, sf::Vector2f(100.0f, 50.0f), sf::Vector2f(700.0f, 300.0f)));
 	platforms.push_back(Platform(&floor, sf::Vector2f(100.0f, 50.0f), sf::Vector2f(500.0f, 150.0f)));
-	platforms.push_back(Platform(&floor, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(100.0f, 400.0f)));	
-	platforms.push_back(Platform(&floor, sf::Vector2f(900.0f,100.0f), sf::Vector2f(300.0f, 470.0f)));
-	
+	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(100.0f, 400.0f)));	
+	//platforms.push_back(Platform(nullptr, sf::Vector2f(900.0f, 100.0f), sf::Vector2f(300.0f, 470.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(900.0f, 70.0f), sf::Vector2f(1100.0f, 300.0f)));
+	//platforms.push_back(Platform(nullptr, sf::Vector2f(900.0f, 100.0f), sf::Vector2f(2300.0f, 500.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(3000.0f, 100.0f), sf::Vector2f(-100.0f, 500.0f)));
 
 	float deltaTime = 0.0f;
 	sf::Clock clock;
 	while (window.isOpen())
 	{
-		//window.draw(bg_yard1);
+		window.draw(bg_yard1);
 		window.draw(collision);
 		window.draw(b0);
 		deltaTime = clock.restart().asSeconds();
@@ -90,6 +92,8 @@ int main()
 		{
 			window.close();
 		}
+//		bg.Draw(window);
+//		window.clear();
 		window.clear(sf::Color(170, 237, 202));
 		window.setView(view);
 		monster.Draw(window);
