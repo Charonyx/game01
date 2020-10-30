@@ -14,7 +14,14 @@ void ResizeView(const sf::RenderWindow& window, sf::View& view)
 
 int main()
 {
-	//sf::Vector2f hp;
+	sf::RectangleShape bg_1(sf::Vector2f(0.0f, 0.0f));
+	sf::Texture bg1;
+	bg1.loadFromFile("img/bg1.png");
+	bg_1.setTexture(&bg1);
+	bg_1.setSize(sf::Vector2f(1280.0f, 720.0f));
+	bg_1.setOrigin(sf::Vector2f(0.0f, 0.0f));
+	bg_1.setPosition(sf::Vector2f(-540.0f, -360.0f));
+
 	
 
 	sf::Vector2f sprawn;
@@ -70,7 +77,7 @@ int main()
 	sf::Clock clock;
 	while (window.isOpen())
 	{
-		window.draw(bg_yard1);
+//		printf("%d \t%d\n", view.getPosition().x, view.getPosition().y);
 		
 		window.draw(b0);
 		deltaTime = clock.restart().asSeconds();
@@ -116,11 +123,12 @@ int main()
 			window.close();
 		}
 //		bg.Draw(window);
-//		window.clear();
-		window.clear(sf::Color(170, 237, 202));
+		window.clear();
+//		window.clear(sf::Color(170, 237, 202));
+		window.draw(bg_1);
 		window.setView(view);
-		window.draw(collision);
-		window.draw(enemy);
+//		window.draw(collision);
+//		window.draw(enemy);
 		monster.Draw(window);
 		for (Platform& platform : platforms)
 		platform.Draw(window);
