@@ -3,8 +3,10 @@
 #include<vector>
 #include"Player.h"
 #include"Platform.h"
+#include"Enemy.h"
 
 static const float View_HEIGHT = 720.0f;
+static const float View_WIDTH = 1080.0f;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view)
 {
@@ -14,6 +16,14 @@ void ResizeView(const sf::RenderWindow& window, sf::View& view)
 
 int main()
 {
+	sf::RenderWindow window(sf::VideoMode(1080, 720), "Fila Kung" , sf::Style::Fullscreen);
+	sf::RectangleShape frame(sf::Vector2f(1080.0f, 720.0f));
+	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(View_WIDTH, View_HEIGHT));
+
+	sf::Texture mon_texture;
+	mon_texture.loadFromFile("img/cat2_3.png");
+	Player monster(&mon_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, 150.0f);
+
 	sf::RectangleShape bg_1(sf::Vector2f(0.0f, 0.0f));
 	sf::Texture bg1;
 	bg1.loadFromFile("img/bg1.png");
@@ -22,18 +32,20 @@ int main()
 	bg_1.setOrigin(sf::Vector2f(0.0f, 0.0f));
 	bg_1.setPosition(sf::Vector2f(-540.0f, -360.0f));
 
-	
+	sf::Texture enemy_texture;
+	enemy_texture.loadFromFile("img/cat2_3.png");
+	Enemy enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, 300 ,275);
 
+	// get check-point
 	sf::Vector2f sprawn;
 	sprawn.x = 0.0f;
 	sprawn.y = 0.0f;
 
-
-
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "Fila Kung" , sf::Style::Fullscreen);
-	sf::RectangleShape frame(sf::Vector2f(1280.0f, 720.0f));
-	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(View_HEIGHT, View_HEIGHT));
-
+	float myHP = 78000;
+	sf::RectangleShape HP(sf::Vector2f(myHP / 150.0f, 50));
+	HP.setPosition(sf::Vector2f(-170, -350));
+	HP.setFillColor(sf::Color::Magenta);
+	HP.setSize(sf::Vector2f(myHP / 320.f, 25));
 
 	////// Circle
 	sf::CircleShape collision(50.f);
@@ -50,14 +62,13 @@ int main()
 	floor.loadFromFile("img/floor.png");
 	b0.setTexture(&floor);
 	
-	sf::RectangleShape enemy(sf::Vector2f(0, 0));
-	enemy.setPosition({ 200.f, 200.f});
-	enemy.setFillColor(sf::Color::Blue);
+	//sf::RectangleShape enemy(sf::Vector2f(0, 0));
+	//enemy.setPosition(sf::Vector2f(200, 200));
+	//enemy.setFillColor(sf::Color::Blue);
+	//enemy.setSize(sf::Vector2f(200, 200));
 
 
-	sf::Texture mon_texture;
-	mon_texture.loadFromFile("img/cat2_3.png"); 
-	Player monster(&mon_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, 300.0f);
+
 
 	
 	std::vector<Platform> platforms;
@@ -77,12 +88,17 @@ int main()
 	sf::Clock clock;
 	while (window.isOpen())
 	{
+		sf::Vector2f mousePosition = sf::Vector2f(0.0f, 0.0f);
+		mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+		printf("%f \t%f\n", mousePosition.x, mousePosition.y);
 //		printf("%d \t%d\n", view.getPosition().x, view.getPosition().y);
 		
-		window.draw(b0);
+//		window.draw(b0);
 		deltaTime = clock.restart().asSeconds();
 		if (deltaTime > 1.0f / 20.0f)
 			deltaTime = 1.0f / 20.0f;
+
+		
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -96,13 +112,18 @@ int main()
 					break;
 			}
 		}
+		HP.setPosition(sf::Vector2f(view.getCenter().x - 520 , -340));
+
 		
+
 		monster.Update(deltaTime);
 		view.setCenter(sf::Vector2f(monster.GetPosition().x, 0));
 
-		Collider monsterCollision = monster.GetCollider(); // Dammit!!!!
+		Collider monsterCollision = monster.GetCollider();
 		sf::Vector2f direction;
 
+		Player player = player;
+		enemy.Update2(deltaTime, player);
 
 		for (Platform& platform : platforms)
 			if (platform.GetCollider().CheckCollision(monsterCollision, direction, 1.0f))
@@ -127,11 +148,15 @@ int main()
 //		window.clear(sf::Color(170, 237, 202));
 		window.draw(bg_1);
 		window.setView(view);
-//		window.draw(collision);
-//		window.draw(enemy);
+		window.draw(HP);
 		monster.Draw(window);
+
+//		window.draw(collision);
+
+		enemy.Draw(window);
+
 		for (Platform& platform : platforms)
-		platform.Draw(window);
+			platform.Draw(window);
 		window.display();
 	}
 	return 0;
