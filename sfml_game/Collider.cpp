@@ -10,7 +10,7 @@ Collider::~Collider()
 {
 }
 
-bool Collider::CheckCollision(Collider& other, sf::Vector2f& direction, float push)
+bool Collider::CheckCollision(Collider other, sf::Vector2f& direction, float push)
 {
 	sf::Vector2f otherPosition = other.GetPosition();
 	sf::Vector2f otherHalfSize = other.GetHalfSize();
@@ -64,7 +64,27 @@ bool Collider::CheckCollision(Collider& other, sf::Vector2f& direction, float pu
 				direction.y = -1.0f;
 			}
 		}
+		return true;
+	}
 
+	return false;
+}
+
+bool Collider::CheckCollisions(Collider other)
+{
+	sf::Vector2f otherPosition = other.GetPosition();
+	sf::Vector2f otherHalfsize = other.GetHalfSize();
+	sf::Vector2f thisPosition = GetPosition();
+	sf::Vector2f thisHalfsize = GetHalfSize();
+
+	float deltaX = otherPosition.x - thisPosition.x;
+	float deltaY = otherPosition.y - thisPosition.y;
+
+	float intersectX = abs(deltaX) - (otherHalfsize.x + thisHalfsize.x);
+	float intersectY = abs(deltaY) - (otherHalfsize.y + thisHalfsize.y);
+
+	if (intersectX < 0.0f && intersectY < 0.0f)
+	{
 		return true;
 	}
 

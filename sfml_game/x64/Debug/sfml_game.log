@@ -1,15 +1,2 @@
-﻿  Animation.cpp
-C:\Users\chura\source\repos\sfml_game\sfml_game\Animation.cpp(10,38): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-C:\Users\chura\source\repos\sfml_game\sfml_game\Animation.cpp(11,39): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-  Enemy.cpp
-  main.cpp
-  Generating Code...
+﻿  main.cpp
   sfml_game.vcxproj -> C:\Users\chura\source\repos\sfml_game\x64\Debug\sfml_game.exe

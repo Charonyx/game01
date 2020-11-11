@@ -7,7 +7,6 @@ Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, fl
 	row = 0;
 	faceRight = true;
 
-
 	body.setSize(sf::Vector2f(65.0f, 50.0f));
 	body.setOrigin(body.getSize() / 2.0f);
 	body.setPosition(x, y);
@@ -19,19 +18,22 @@ Enemy::~Enemy()
 
 void Enemy::Update2(float deltaTime , Player player)
 {
-	velocity.x *= 80.0f;
-	velocity.y *= 0.0f;
+	velocity.x = 80;
+	velocity.y = 0;
 
-
-	if (abs(player.GetPosition().x - body.getPosition().x) <= 300)
+	if (abs(player.GetPosition().x - body.getPosition().x) <= 500.0f)
 	{
 		if (player.GetPosition().x > body.getPosition().x)
 		{
 			body.move(velocity * deltaTime);
+			faceRight = 1;
+			
 		}
 		else if (player.GetPosition().x < body.getPosition().x)
 		{
+			
 			body.move(-velocity * deltaTime);
+			faceRight = 0;
 		}
 	}
 

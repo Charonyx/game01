@@ -1,9 +1,10 @@
 #include <SFML/Graphics.hpp>
-#include<iostream>
-#include<vector>
-#include"Player.h"
-#include"Platform.h"
-#include"Enemy.h"
+#include <iostream>
+#include <vector>
+#include "Player.h"
+#include "Platform.h"
+#include "Enemy.h"
+#include "Time.h"
 
 static const float View_HEIGHT = 720.0f;
 static const float View_WIDTH = 1080.0f;
@@ -36,21 +37,25 @@ int main()
 	enemy_texture.loadFromFile("img/cat2_3.png");
 	Enemy enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, 300 ,275);
 
+
+
+	std::vector <Enemy> enemyVector;
+	for (int pos = 0; pos < 1550; pos += 60)
+	{
+//		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(9, 1), 0.08f, 800.0f + pos, 550.0f));
+	}
+
 	// get check-point
 	sf::Vector2f sprawn;
 	sprawn.x = 0.0f;
 	sprawn.y = 0.0f;
 
+	// HP player
 	float myHP = 78000;
 	sf::RectangleShape HP(sf::Vector2f(myHP / 150.0f, 50));
 	HP.setPosition(sf::Vector2f(-170, -350));
 	HP.setFillColor(sf::Color::Magenta);
 	HP.setSize(sf::Vector2f(myHP / 320.f, 25));
-
-	////// Circle
-	sf::CircleShape collision(50.f);
-	collision.setPosition({ 200.f, 200.f });
-	collision.setFillColor(sf::Color::Black);
 
 	sf::RectangleShape bg_yard1(sf::Vector2f(0, 0));
 	sf::Texture bg_yard;
@@ -62,13 +67,6 @@ int main()
 	floor.loadFromFile("img/floor.png");
 	b0.setTexture(&floor);
 	
-	//sf::RectangleShape enemy(sf::Vector2f(0, 0));
-	//enemy.setPosition(sf::Vector2f(200, 200));
-	//enemy.setFillColor(sf::Color::Blue);
-	//enemy.setSize(sf::Vector2f(200, 200));
-
-
-
 
 	
 	std::vector<Platform> platforms;
@@ -86,19 +84,22 @@ int main()
 
 	float deltaTime = 0.0f;
 	sf::Clock clock;
+	sf::Time time;
 	while (window.isOpen())
 	{
 		sf::Vector2f mousePosition = sf::Vector2f(0.0f, 0.0f);
 		mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-		printf("%f \t%f\n", mousePosition.x, mousePosition.y);
-//		printf("%d \t%d\n", view.getPosition().x, view.getPosition().y);
+//		printf("%f \t%f\n", mousePosition.x, mousePosition.y);
+
+		//time = clock.restart();
+		//float fps = time.asSeconds();
+		//printf("%f\n", 1.0f / fps);
 		
 //		window.draw(b0);
 		deltaTime = clock.restart().asSeconds();
 		if (deltaTime > 1.0f / 20.0f)
 			deltaTime = 1.0f / 20.0f;
-
-		
+	
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -108,22 +109,18 @@ int main()
 				window.close();
 				break;
 			case sf::Event::Resized:
-					ResizeView(window, view);
-					break;
+				ResizeView(window, view);
+				break;
 			}
 		}
+
 		HP.setPosition(sf::Vector2f(view.getCenter().x - 520 , -340));
-
 		
-
 		monster.Update(deltaTime);
 		view.setCenter(sf::Vector2f(monster.GetPosition().x, 0));
 
 		Collider monsterCollision = monster.GetCollider();
 		sf::Vector2f direction;
-
-		Player player = player;
-		enemy.Update2(deltaTime, player);
 
 		for (Platform& platform : platforms)
 			if (platform.GetCollider().CheckCollision(monsterCollision, direction, 1.0f))
@@ -138,11 +135,14 @@ int main()
 			sprawn.y = 0;
 		}
 	
+		//Player player = player;
+		enemy.Update2(deltaTime, monster);
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{	
 			window.close();
-		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::RShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+			//freeze hp
+		
 //		bg.Draw(window);
 		window.clear();
 //		window.clear(sf::Color(170, 237, 202));
@@ -151,12 +151,16 @@ int main()
 		window.draw(HP);
 		monster.Draw(window);
 
-//		window.draw(collision);
-
 		enemy.Draw(window);
 
 		for (Platform& platform : platforms)
 			platform.Draw(window);
+
+//		for (int i = 0; i < enemyVector.size(); i++)
+//		{
+//			enemyVector[i].Draw(window);
+//		}
+//		window.setFramerateLimit(500);
 		window.display();
 	}
 	return 0;
