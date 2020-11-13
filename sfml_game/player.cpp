@@ -32,10 +32,14 @@ void Player::Update(float deltaTime)
 	{
 		velocity.x += speed;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)&& canJump)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && canJump)
 	{
 		canJump = false;
 		velocity.y = -sqrt(2.0f * 981.0f * jumpHeight);
+		
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+	{
 		
 	}
 

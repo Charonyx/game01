@@ -70,7 +70,7 @@ bool Collider::CheckCollision(Collider other, sf::Vector2f& direction, float pus
 	return false;
 }
 
-bool Collider::CheckCollisions(Collider other)
+bool Collider::CheckCollisions(Collider other, float push)
 {
 	sf::Vector2f otherPosition = other.GetPosition();
 	sf::Vector2f otherHalfsize = other.GetHalfSize();

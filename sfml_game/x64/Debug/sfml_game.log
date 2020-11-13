@@ -1,2 +1,12 @@
-﻿  main.cpp
+﻿  Collider.cpp
+  Enemy.cpp
+  Platform.cpp
+  main.cpp
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(63,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(65,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(66,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(67,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(68,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  player.cpp
+  Generating Code...
   sfml_game.vcxproj -> C:\Users\chura\source\repos\sfml_game\x64\Debug\sfml_game.exe
