@@ -11,6 +11,8 @@ Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, fl
 	body.setOrigin(body.getSize() / 2.0f);
 	body.setPosition(x, y);
 	body.setTexture(texture);
+
+
 }
 Enemy::~Enemy()
 {
