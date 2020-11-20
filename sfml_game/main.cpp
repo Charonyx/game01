@@ -194,7 +194,7 @@ int main()
 
 	// PLAYER
 	sf::Texture player_texture;
-	player_texture.loadFromFile("img/cat2_4.png");
+	player_texture.loadFromFile("img/cat2_5.png");
 	Player player(&player_texture, sf::Vector2u(3, 3), 0.2f, 300.0f, 150.0f);
 
 	// ENEMY01
