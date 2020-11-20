@@ -3,25 +3,29 @@
 #include "Animation.h"
 #include "Collider.h"
 #include "Player.h"
-class Enemy
+class Item
 {
 public:
-	Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float x, float y);
-	~Enemy();
+	Item(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float x, float y);
+	~Item();
 
-	void Update2(float deltaTime, Player player);
+	void Update(float deltaTime, Player player);
 	void Draw(sf::RenderWindow& window);
-	void OnCollision(sf::Vector2f direction);
 	sf::Vector2f GetPosition() { return	body.getPosition(); }
+	int iscollide()
+	{
+		if (item == 1) {
+			item--;
+			return 1;
+		}
+	}
 	Collider GetCollider() { return Collider(body); }
 
 private:
 	sf::RectangleShape body;
 	Animation animation;
 	unsigned int row;
-	float speed;
+	int item;
+	int collide;
 	bool faceRight;
-
-	sf::Vector2f velocity;
-
 };

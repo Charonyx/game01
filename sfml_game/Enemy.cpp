@@ -12,7 +12,11 @@ Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, fl
 	body.setPosition(x, y);
 	body.setTexture(texture);
 
+	//this->enemyHP.setSize(sf::Vector2f(60, 5));
+	//this->enemyHP.setFillColor(sf::Color::Red);
 
+	//this->enemyHPBack = this->enemyHP;
+	//this->enemyHPBack.setFillColor(sf::Color::Black);
 }
 Enemy::~Enemy()
 {
@@ -46,4 +50,28 @@ void Enemy::Update2(float deltaTime , Player player)
 void Enemy::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
+}
+void Enemy::OnCollision(sf::Vector2f direction)
+{
+	if (direction.x < 0.0f)
+	{
+		//Collision on the left.
+		velocity.x = 0.0f;
+	}
+	else if (direction.x > 0.0f)
+	{
+		//Collision on the right.
+		velocity.x = 0.0f;
+	}
+	if (direction.y < 0.0f)
+	{
+		//Collision on the bottom.
+		velocity.y = 0.0f;
+		
+	}
+	else if (direction.y > 0.0f)
+	{
+		//Collision on the top.
+		velocity.y = 0.0f;
+	}
 }

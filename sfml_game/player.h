@@ -21,9 +21,11 @@ private:
 	unsigned int row;
 	float speed;
 	bool faceRight;
-
+	bool crawl = 0;
+	
 	sf::Vector2f velocity;
 	bool canJump;
 	float jumpHeight;
+	float delayCrawl = 0.0f;
 
 };
