@@ -2,6 +2,7 @@
 #include<SFML/Graphics.hpp>
 #include "Animation.h"
 #include "Collider.h"
+
 class Player
 {
 public:
@@ -14,7 +15,18 @@ public:
 	void SetPosition(sf::Vector2f position) { body.setPosition(position); }
 	sf::Vector2f GetPosition() {return	body.getPosition();}
 	Collider GetCollider() { return Collider(body); }
-							
+
+	bool crawlRe() 
+	{
+		if (this->crawl == 1) { return 1; }
+		else { return 0; }
+	}
+	float delayCrawlRe()
+	{
+		if (this->delayCrawl > 0.f) { return delayCrawl; }
+		else { return 0.f; }
+	}	
+
 private:
 	sf::RectangleShape body;
 	Animation animation;
