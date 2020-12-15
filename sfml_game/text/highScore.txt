@@ -1,0 +1,5 @@
+John,12000
+Mali,5000
+Barney,10000
+Ammy,15000
+Boat,2500

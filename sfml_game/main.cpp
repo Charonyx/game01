@@ -1,8 +1,10 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include "Player.h"
 #include "Platform.h"
 #include "Enemy.h"
@@ -24,17 +26,27 @@ bool warp1 = 0, warp2 = 0;
 
 int score = 0;
 
+// player blink
+int q = 0;
+bool checkColi = false;
+bool checkDraw = false;
+
+// player 
+int Loop = 0;
+
+// menu
 bool MENU = true;
 bool playGAME = false;
 bool how2play = false;
 bool RANK = false;
 bool setting = false;
 bool endGAME = false;
+bool enterName = false;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view)
 {
 	float aspectRatio = float(window.getSize().x) / float(window.getSize().y);
-	view.setSize((View_HEIGHT)* aspectRatio, View_HEIGHT );
+	view.setSize((View_HEIGHT)*aspectRatio, View_HEIGHT);
 }
 
 int main()
@@ -76,7 +88,7 @@ int main()
 	sf::Text talk03_6("Great! Wait for a minute....\nFinished! ", MainFont, 25);
 	sf::Text talk03_7("Wowwww! What would I do without you? ", MainFont, 25);
 	sf::Text talk03_8("Ha ha ha! \nI'm happy to help. ", MainFont, 25);
-	
+
 	// MENU //////////////////////////
 	// MENU unpressed
 	sf::RectangleShape menu01(sf::Vector2f(0, 0));
@@ -85,14 +97,14 @@ int main()
 	menu01.setTexture(&menu);
 	menu01.setSize(sf::Vector2f(1080.0f, 720.0f));
 	menu01.setOrigin(sf::Vector2f(0.0f, 0.0f));
-	
+
 	// MENU unpressed
 	sf::RectangleShape menu01_0(sf::Vector2f(0, 0));
 	sf::Texture menu1_0;
 	menu1_0.loadFromFile("img/menu01-0.png");
 	menu01_0.setTexture(&menu1_0);
 	menu01_0.setSize(sf::Vector2f(1080.0f, 720.0f));
-	menu01_0.setOrigin(sf::Vector2f(0.0f, 0.0f));	
+	menu01_0.setOrigin(sf::Vector2f(0.0f, 0.0f));
 
 	// MENU pressed play
 	sf::RectangleShape menu01_1(sf::Vector2f(0, 0));
@@ -101,7 +113,7 @@ int main()
 	menu01_1.setTexture(&menu1_1);
 	menu01_1.setSize(sf::Vector2f(1080.0f, 720.0f));
 	menu01_1.setOrigin(sf::Vector2f(0.0f, 0.0f));
-	
+
 
 	// MENU pressed score
 	sf::RectangleShape menu01_2(sf::Vector2f(0, 0));
@@ -117,7 +129,7 @@ int main()
 	menu1_3.loadFromFile("img/menu01-3.png");
 	menu01_3.setTexture(&menu1_3);
 	menu01_3.setSize(sf::Vector2f(1080.0f, 720.0f));
-	menu01_3.setOrigin(sf::Vector2f(0.0f, 0.0f));	
+	menu01_3.setOrigin(sf::Vector2f(0.0f, 0.0f));
 
 	// MENU pressed setting
 	sf::RectangleShape menu01_4(sf::Vector2f(0, 0));
@@ -126,7 +138,7 @@ int main()
 	menu01_4.setTexture(&menu1_4);
 	menu01_4.setSize(sf::Vector2f(1080.0f, 720.0f));
 	menu01_4.setOrigin(sf::Vector2f(0.0f, 0.0f));
-//	menu01_4.setPosition(sf::Vector2f(540.0f, -360.0f));
+	//	menu01_4.setPosition(sf::Vector2f(540.0f, -360.0f));
 
 	// MENU pressed exit
 	sf::RectangleShape menu01_5(sf::Vector2f(0, 0));
@@ -135,15 +147,23 @@ int main()
 	menu01_5.setTexture(&menu1_4);
 	menu01_5.setSize(sf::Vector2f(1080.0f, 720.0f));
 	menu01_5.setOrigin(sf::Vector2f(0.0f, 0.0f));
-//	menu01_5.setPosition(sf::Vector2f(540.0f, -360.0f));
-	
-	// Background //////////////////////////////////
-	// BG01
+	//	menu01_5.setPosition(sf::Vector2f(540.0f, -360.0f));
+
+	// MENU pressed exit
+	sf::RectangleShape rank(sf::Vector2f(0, 0));
+	sf::Texture showRank;
+	showRank.loadFromFile("img/score.png");
+	rank.setTexture(&showRank);
+	rank.setSize(sf::Vector2f(1080.0f, 720.0f));
+	rank.setOrigin(sf::Vector2f(0.0f, 0.0f));
+
+		// Background //////////////////////////////////
+		// BG01
 	sf::RectangleShape bg01(sf::Vector2f(0.0f, 0.0f));
 	sf::Texture bg1;
 	bg1.loadFromFile("img/BG01.png");
 	bg01.setTexture(&bg1);
-	bg01.setSize(sf::Vector2f(12800.0f, 720.0f));	
+	bg01.setSize(sf::Vector2f(12800.0f, 720.0f));
 	bg01.setOrigin(sf::Vector2f(0.0f, 0.0f));
 	bg01.setPosition(sf::Vector2f(-540.0f, -360.0f));
 
@@ -209,16 +229,16 @@ int main()
 	storyState01.loadFromFile("img/story01.png");
 	story01.setTexture(&storyState01);
 	story01.setSize(sf::Vector2f(60.0f, 60.0f));
-	story01.setPosition(sf::Vector2f(9800.f, 243.0f));	
-	
+	story01.setPosition(sf::Vector2f(9800.f, 243.0f));
+
 	// story02 : NPC state2 MR. Meow
 	sf::RectangleShape story02(sf::Vector2f(0.0f, 0.0f));
 	sf::Texture storyState02;
 	storyState02.loadFromFile("img/story02.png");
 	story02.setTexture(&storyState02);
 	story02.setSize(sf::Vector2f(60.0f, 60.0f));
-	story02.setPosition(sf::Vector2f(800.f, 243.0f));	
-	
+	story02.setPosition(sf::Vector2f(800.f, 243.0f));
+
 	// story03 : NPC state3 MR. Magic
 	sf::RectangleShape story03(sf::Vector2f(0.0f, 0.0f));
 	sf::Texture storyState03;
@@ -275,7 +295,7 @@ int main()
 	q2.loadFromFile("img/quest2.png");
 	quest2.setTexture(&q2);
 	quest2.setSize(sf::Vector2f(1080.0f, 720.0f));
-	
+
 	// quest 3
 	sf::RectangleShape quest3(sf::Vector2f(0.0f, 0.0f));
 	sf::Texture q3;
@@ -289,7 +309,7 @@ int main()
 	rare1.loadFromFile("img/rareItem1.png");
 	rareItem1.setTexture(&rare1);
 	rareItem1.setSize(sf::Vector2f(1080.0f, 720.0f));
-	
+
 	// rare  item2
 	sf::RectangleShape rareItem2(sf::Vector2f(0.0f, 0.0f));
 	sf::Texture rare2;
@@ -304,7 +324,7 @@ int main()
 	rareItem3.setTexture(&rare3);
 	rareItem3.setSize(sf::Vector2f(1080.0f, 720.0f));
 	//rareItem3.setSize(sf::Vector2f(600.0f, 230.0f));
-	
+
 
 
 
@@ -317,6 +337,35 @@ int main()
 	//	}
 	//}
 
+	// ENTER NAME
+	sf::String playerInput;
+	std::ofstream fileWriter;
+	std::ostringstream keyname;
+	sf::Text Keyname;
+	std::string userName;
+	std::fstream adminFile;
+	Keyname.setCharacterSize(40);
+	Keyname.setString(" ");
+	Keyname.setFont(MainFont);
+	Keyname.setFillColor(sf::Color::Black);
+	char last_char = ' ';
+	sf::RectangleShape cursor;
+	cursor.setSize(sf::Vector2f(5.0f, 30.0f));
+	cursor.setOrigin(sf::Vector2f(2.5f, 15.0f));
+	cursor.setFillColor(sf::Color::Black);
+	sf::Text text("", MainFont);
+
+	Keyname.setPosition(300, 500);
+	text.setFillColor(sf::Color::Black);
+	text.setPosition(545, 535);
+	cursor.setPosition(545.0f + text.getGlobalBounds().width + 10, 555.0f);
+	float totalTime_cursor = 0;
+	sf::Clock clock_cursor;
+	bool state_cursor = false;
+
+	std::map<int, std::string> save_score;
+	std::ifstream Opentext;
+	std::string list;
 
 	// SCORE
 	sf::Font scoreFont;
@@ -336,12 +385,12 @@ int main()
 	// ENEMY01
 	sf::Texture enemy_texture;
 	enemy_texture.loadFromFile("img/enemy.png");
-	Enemy enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, 300.0f ,275.0f);
+	Enemy enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, 300.0f, 275.0f);
 
 	// ENEMY02
 	sf::Texture enemy_texture2;
 	enemy_texture2.loadFromFile("img/enemy2.png");
-	Enemy enemy2(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, 300.0f ,275.0f);
+	Enemy enemy2(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, 300.0f, 275.0f);
 
 	std::vector <Enemy> enemyVector;
 	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 2400, 275));
@@ -394,7 +443,7 @@ int main()
 	HP.setFillColor(sf::Color::Magenta);
 	HP.setSize(sf::Vector2f(myHP / 320.f, 25.0f));
 
-	
+
 	// Platform floor == texture size position
 	std::vector<Platform> platforms;
 
@@ -415,7 +464,7 @@ int main()
 	platforms.push_back(Platform(&floor, sf::Vector2f(300.0f, 40.0f), sf::Vector2f(4300.0f, 55.0f)));		//
 	platforms.push_back(Platform(&floor, sf::Vector2f(200.0f, 40.0f), sf::Vector2f(4800.0f, 55.0f)));		//
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(5000.0f, 175.0f)));
-	
+
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(6400.0f, 175.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(6500.0f, 135.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(6600.0f, 95.0f)));
@@ -423,7 +472,7 @@ int main()
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(7600.0f, 175.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(7500.0f, 135.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(7400.0f, 95.0f)));
-	
+
 
 	// state 2
 	platforms.push_back(Platform(nullptr, sf::Vector2f(22800.0f, 100.0f), sf::Vector2f(12800.0f, 350.0f)));	//main
@@ -442,7 +491,7 @@ int main()
 	platforms.push_back(Platform(&floor, sf::Vector2f(300.0f, 40.0f), sf::Vector2f(17300.0f, 55.0f)));		//
 	platforms.push_back(Platform(&floor, sf::Vector2f(200.0f, 40.0f), sf::Vector2f(17800.0f, 55.0f)));		//
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(18000.0f, 175.0f)));
-		
+
 	// state 3
 	platforms.push_back(Platform(nullptr, sf::Vector2f(12800.0f, 100.0f), sf::Vector2f(23060.0f, 350.0f)));	//main
 /*	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 100.0f), sf::Vector2f(400.0f, 255.0f)));		//tutorial
@@ -450,7 +499,7 @@ int main()
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(1400.0f, 175.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(1500.0f, 135.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(1600.0f, 95.0f)));
-	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 40.0f), sf::Vector2f(2000.0f, 55.0f)));		// item under	
+	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 40.0f), sf::Vector2f(2000.0f, 55.0f)));		// item under
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(2600.0f, 175.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(2500.0f, 135.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(100.0f, 40.0f), sf::Vector2f(2400.0f, 95.0f)));
@@ -468,9 +517,11 @@ int main()
 	float deltaTime = 0.0f;
 	int k = 0;
 	sf::Clock clock;
-	sf::Time time; //frame rate
-	sf::Clock cl; // hit enemy
-	sf::Clock clTalk;
+	sf::Time time;			//frame rate
+	sf::Clock cl;			// hit enemy
+	sf::Clock timercoli;	// check player blink
+	sf::Clock clTalk;		// NPC talk
+	float counTime;			// enter name
 	float timeTalk = 0;
 
 	float delayTime = 0.f;
@@ -479,14 +530,19 @@ int main()
 
 	while (window.isOpen())
 	{
-		float PositionPlayerX = float((player.GetCollider().GetPosition().x));
-		float PositionPlayerY = float((player.GetCollider().GetPosition().y));
+		float PositionPlayerX = float(player.GetPosition().x); //float((player.GetCollider().GetPosition().x));
+		float PositionPlayerY = float(player.GetPosition().y); //float((player.GetCollider().GetPosition().y));
 
 		float msgPX = PositionPlayerX - 520.f, msgPY = -270.f;
 		float msgNX = PositionPlayerX - 80.f, msgNY = 40.f;
 
 		timeTalk = clTalk.getElapsedTime().asSeconds();
-
+		printf("%f %f\n", PositionPlayerX, PositionPlayerY);
+		
+		deltaTime = clock.restart().asSeconds();
+		//if (deltaTime > 1.0f / 20.0f)
+		//	deltaTime = 1.0f / 20.0f;
+		
 
 		while (MENU == true)
 		{
@@ -505,10 +561,11 @@ int main()
 			}
 			window.draw(menu01);
 			window.draw(menu01_0);
+
 			// mouse position
 			sf::Vector2f mousePosition = sf::Vector2f(0.0f, 0.0f);
 			mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-			printf("%f \t%f\n", mousePosition.x, mousePosition.y);
+			//printf("%f \t%f\n", mousePosition.x, mousePosition.y);
 
 			//printf("%f \t%f\n", player.GetPosition().x, player.GetPosition().y);
 
@@ -517,16 +574,13 @@ int main()
 			//float fps = time.asSeconds();
 			//printf("%f\n", 1.0f / fps);
 
-			deltaTime = clock.restart().asSeconds();
-			if (deltaTime > 1.0f / 20.0f)
-				deltaTime = 1.0f / 20.0f;
-
 			if (sf::Mouse::getPosition(window).x >= 380 && sf::Mouse::getPosition(window).y >= 265 &&
 				sf::Mouse::getPosition(window).x <= 665 && sf::Mouse::getPosition(window).y <= 330) {
 				window.draw(menu01_1);
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					MENU = false;
-					playGAME = true;
+					playGAME = false;
+					enterName = true;
 				}
 			}
 			else if (sf::Mouse::getPosition(window).x >= 380 && sf::Mouse::getPosition(window).y >= 380 &&
@@ -561,9 +615,166 @@ int main()
 					break;
 				}
 			}
+			window.display();
+		}
+		/**/
+		while (enterName == true) {
+			//counTime += deltaTime;
+			sf::Event event;
+			while (window.pollEvent(event)) {
+				switch (event.type)
+				{
+				case sf::Event::Closed:
+					window.close();
+					break;
+				}
+			}
+
+			if (event.type == sf::Event::TextEntered && last_char != event.text.unicode)
+			{
+				if (event.text.unicode == 20) { // number of character
+					userName = playerInput;
+					playerInput.clear();
+					MENU = true;
+
+				}
+				else if (event.text.unicode == 8 && playerInput.getSize() > 0) { // backspace delete
+					playerInput = playerInput.substring(0, playerInput.getSize() - 1);
+				}
+				else {
+					if (playerInput.getSize() < 10) {
+						//if (counTime > 0.2) {
+							playerInput += event.text.unicode;
+							//counTime = 0;
+						//}
+					}
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+					MENU = false;
+					enterName = false;
+					playGAME = true;
+				}
+
+				last_char = event.text.unicode;
+				text.setString(playerInput);
+				cursor.setPosition(545.0f + text.getGlobalBounds().width + 10, 555.0f);
+			}
+			else if (event.type == sf::Event::EventType::KeyReleased && last_char != ' ') {
+				last_char = ' ';
+			}
+			window.clear();
+			//window.draw(key);
+			window.draw(menu01);
+			window.draw(Keyname);
+
+			totalTime_cursor += clock_cursor.restart().asSeconds();
+			if (totalTime_cursor >= 0.5) {
+				totalTime_cursor = 0;
+				state_cursor = !state_cursor;
+			}
+			if (state_cursor == true) {
+
+				window.draw(cursor);
+			}
+			window.draw(text);
+
+			window.display();
+
+		}
+		/**/
+		while (RANK == true) {
+			sf::Event event;
+			while (window.pollEvent(event))
+			{
+				switch (event.type)
+				{
+				case sf::Event::Closed:
+					window.close();
+					break;
+				case sf::Event::Resized:
+					ResizeView(window, view);
+					break;
+				}
+			}
+
+			////////////////////////////////////////////////////////////////////////////////////////// insert loop++
+			if (Loop == 0) {
+				view.setCenter(540, 360);
+			}
+			
+			sf::Vector2f mouesPosition = sf::Vector2f(0.0f, 0.0f);
+			mouesPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+			//cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y << endl;
+
+			window.clear();
+			window.draw(rank);
+
+			sf::Text text1("", MainFont);
+			text1.setCharacterSize(30);
+			text1.setFillColor(sf::Color::Black);
+			Opentext.open("text/highScore.txt");
+			do {
+				Opentext >> list;
+				std::string first_token = list.substr(0, list.find(','));
+				int second_token = std::stoi(list.substr(list.find(',') + 1, list.length()));
+				save_score[second_token] = first_token;
+			} while (Opentext.good());
+			Opentext.close();
+			std::map<int, std::string>::iterator end = save_score.end();
+			std::map<int, std::string>::iterator beg = save_score.begin();
+			end--;
+			beg--;
+			int currentDisplay = 0;
+			for (std::map<int, std::string>::iterator it = end; it != beg; it--) {
+				text1.setString(it->second);
+				//text1.setPosition(view.getCenter().x - 170, 210 + 80 * currentDisplay);
+				text1.setPosition(view.getCenter().x - 170, 250 + 80 * currentDisplay);
+				window.draw(text1);
+				text1.setString(std::to_string(it->first));
+				text1.setPosition(view.getCenter().x + 95, 250 + 80 * currentDisplay);
+				window.draw(text1);
+				currentDisplay++;
+				if (currentDisplay == 5)
+				{
+					break;
+				}
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			{
+				//Soundch.play();
+				RANK = false;
+				MENU = true;
+				//scoreSound.stop();
+			}
+			window.display();
 		}
 
+		float a = player.GetPosition().x;
+		float b = player.GetPosition().y;
 		while (playGAME == true) {
+
+			deltaTime = clock.restart().asSeconds();
+			sf::Event event;
+			while (window.pollEvent(event))
+			{
+				switch (event.type)
+				{
+				case sf::Event::Closed:
+					window.close();
+					break;
+				case sf::Event::Resized:
+					ResizeView(window, view);
+					break;
+				}
+			}
+
+			printf("%f %f\n", a, b);
+			// mouse position
+			sf::Vector2f mousePosition = sf::Vector2f(0.0f, 0.0f);
+			mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+			//printf("%f \t%f\n", mousePosition.x, mousePosition.y);
+
 			player.Update(deltaTime);
 			view.setCenter(sf::Vector2f(player.GetPosition().x, 0));
 
@@ -619,7 +830,9 @@ int main()
 			// storyTalk NPC1
 			if (PositionPlayerX >= 9650 && PositionPlayerX <= 9900)
 			{
+				printf("111 %d\n", talk1);
 				if (talk1 == 0) {
+					printf("123 %d\n", talk1);
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 						talk1 = 1;
 						clTalk.restart();
@@ -703,7 +916,28 @@ int main()
 			window.draw(quest3);
 			window.draw(HP);
 			window.draw(scoreText);
-			player.Draw(window);
+
+			// draw player
+			if (checkColi == true) {
+				if (q < 10) {
+					if (q % 2 == 0 && timercoli.getElapsedTime().asSeconds() >= 0.05) {
+						checkDraw = true;
+						q++;
+						timercoli.restart();
+					}
+					else if (q % 2 != 0 && timercoli.getElapsedTime().asSeconds() >= 0.05) {
+						checkDraw = false;
+						q++;
+						timercoli.restart();
+					}
+					if (q == 10) {
+						checkColi = false;
+					}
+				}
+			}
+			if (checkDraw == false) {
+				player.Draw(window);
+			}
 
 			for (int i = 0; i < enemyVector.size(); i++) {
 				for (Platform& platform : platforms) {
@@ -787,7 +1021,7 @@ int main()
 					window.draw(msgToTalk);
 				}
 				if (talk1 == 1) {
-					//printf("%d\n", npc1);
+					printf("%d\n", npc1);
 					msgBoxPlayer.setPosition(sf::Vector2f(msgPX, msgPY));
 					msgBoxNPC1.setPosition(sf::Vector2f(msgNX, msgNY));
 					talk01_1.setPosition(sf::Vector2f(msgPX + 125.f, msgPY + 45.f));
@@ -855,13 +1089,56 @@ int main()
 
 			if (myHP < 0.0f) {
 				myHP = 0;
-				//endGame = 1;
+				endGAME = true;
 			}
 			if (myHP > 78000.0f) {
 				myHP = 78000.0f;
 				HP.setFillColor(sf::Color::Magenta);
 				HP.setSize(sf::Vector2f(myHP / 320.f, 25.f));
 			}
+			if (endGAME == true) {
+				//menu01.setPosition(sf::Vector2f(, ));
+
+				menu01_0.setPosition(sf::Vector2f(view.getCenter().x - 540, 0));
+				window.draw(menu01_0);
+
+				if (sf::Mouse::getPosition(window).x >= 525 &&
+					sf::Mouse::getPosition(window).y >= 475 &&
+					sf::Mouse::getPosition(window).x <= 845 &&
+					sf::Mouse::getPosition(window).y <= 565)
+				{
+					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+
+
+						std::vector<std::pair<int, std::string> > scoreText;
+						std::string temp, tempString;
+						int tempInt = 0, X = 1;
+						while (window.pollEvent(event))
+						{
+							if (event.type == sf::Event::Closed)
+								window.close();
+							fileWriter.open("text/highScore.txt", std::ios::out | std::ios::app);
+							fileWriter << "\n" << userName << "," << score;
+							fileWriter.close();
+							playerInput.clear();
+						}
+						adminFile.close();
+						playGAME = false;
+						//part1Sound.stop();
+						RANK = false;
+						endGAME = false;
+						MENU = true;
+
+
+						cursor.setPosition(view.getCenter().x + 5 + text.getGlobalBounds().width + 10, 555.0f);
+						last_char = event.text.unicode;
+						text.setString(playerInput);
+						Keyname.setPosition(view.getCenter().x - 240, 500);
+						text.setPosition(view.getCenter().x - 15, 535.0f);
+					}
+				}
+			}
+
 			window.display();
 		}
 	}
