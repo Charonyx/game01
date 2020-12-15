@@ -1,12 +1,22 @@
 ﻿  main.cpp
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(21,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(291,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(292,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(293,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(294,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(295,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(303,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(304,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(412,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(636,94): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(42,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(347,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(348,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(349,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(350,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(351,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(353,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(354,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(355,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(356,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(357,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(359,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(367,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(368,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(370,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(371,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(379,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(380,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(477,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(710,95): warning C4390: ';': empty controlled statement found; is this the intent?
   sfml_game.vcxproj -> C:\Users\chura\source\repos\sfml_game\x64\Debug\sfml_game.exe
