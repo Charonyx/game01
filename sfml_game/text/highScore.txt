@@ -3,3 +3,12 @@ Mali,5000
 Barney,10000
 Ammy,15000
 Boat,2500
+asd,14600
+test,39200
+asd,0
+asd,0
+ee,2600
+tgh,1300
+ee,0
+fgfh,0
+sdfsdf,21700
