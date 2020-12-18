@@ -66,34 +66,67 @@ int main()
 	MainFont.loadFromFile("font/SHOWG.ttf");
 	//sf::Text scoreText("score : ", MainFont, 16);
 	sf::Text talk01_1("Ah! onii-chan!? ", MainFont, 25);
-	sf::Text talk01_2("Hi, fila-kung. \nI haven't seen you for ages. ", MainFont, 25);
+	sf::Text talk01_2("Hi, fila-kung. \nI haven't seen you for ages. \n\nPress 'E' to continue...", MainFont, 25);
 	sf::Text talk01_3("Ha ha ha! \nAre you kidding me? \nWe just met each other yesterday.", MainFont, 23);
-	sf::Text talk01_4("Opps! Really? \nI think yesterday is very \nlong times for me. ", MainFont, 25);
+	sf::Text talk01_4("Opps! Really? \nI think yesterday is very \nlong times for me. \n\nPress 'R' to continue...", MainFont, 25);
 	sf::Text talk01_5("Sorry to interrupt you, \nbut I've lost my bell collar. \nHave you seen something \nlike my collar ? ", MainFont, 25);
-	sf::Text talk01_6("Hmm.......... \nI'm not sure, but I have found \npieces of something. Let me \ngive it to you.", MainFont, 25);
+	sf::Text talk01_6("Hmm.......... \nI'm not sure, but I have found \npieces of something. Let me \ngive it to you.\nPress 'T' to continue...", MainFont, 25);
 	sf::Text talk01_7("Oh! This is pieces of my collar. \nThanx, onii-chan!", MainFont, 25);
-	sf::Text talk01_8("You got it. \nfinger crossed! ", MainFont, 25);
+	sf::Text talk01_8("You got it. \nfinger crossed! \n\nPress 'Y' to continue...\n and then Press 'U' to keep item...", MainFont, 25);
 
 	sf::Text talk02_1("Bonjour, Mr. Meow! ", MainFont, 25);
-	sf::Text talk02_2("Bonjour, Fila-kung! \nWhy are you in a rush? ", MainFont, 25);
+	sf::Text talk02_2("Bonjour, Fila-kung! \nWhy are you in a rush? \n\nPress 'E' to continue...", MainFont, 25);
 	sf::Text talk02_3("I lost my bell collar and \nI want to found it ASAP.", MainFont, 25);
-	sf::Text talk02_4("What a coincidence! \nI just found something like that. \nLet me give it to you. ", MainFont, 25);
+	sf::Text talk02_4("What a coincidence! \nI just found something like that. \nLet me give it to you. \n\nPress 'R' to continue...", MainFont, 25);
 	sf::Text talk02_5("Oh! It's mine. ", MainFont, 25);
-	sf::Text talk02_6(":D ", MainFont, 25);
+	sf::Text talk02_6(":D \n\nPress 'T' to continue...", MainFont, 25);
 	sf::Text talk02_7("Thank you, Mr. Meow. ", MainFont, 25);
-	sf::Text talk02_8("No worries. ", MainFont, 25);
+	sf::Text talk02_8("No worries. \n\nPress 'Y' to continue...\n\n and then Press 'U' to keep item...", MainFont, 25);
 
 	sf::Text talk03_1("Bonjour, Mr. Magic!", MainFont, 25);
-	sf::Text talk03_2("Bonjour, Fila-kung! \nCan I help you?", MainFont, 25);
+	sf::Text talk03_2("Bonjour, Fila-kung! \nCan I help you? \n\nPress 'E' to continue...", MainFont, 25);
 	sf::Text talk03_3("Surely? \nCan you fix my bell collar? ", MainFont, 25);
-	sf::Text talk03_4("Certainly, let you give \npieces of your collar to me! ", MainFont, 25);
+	sf::Text talk03_4("Certainly, let you give \npieces of your collar to me! \n\nPress 'R' to continue...", MainFont, 25);
 	sf::Text talk03_5("Here you are.", MainFont, 25);
-	sf::Text talk03_6("Great! Wait for a minute....\nFinished! ", MainFont, 25);
+	sf::Text talk03_6("Great! Wait for a minute....\nFinished! \n\nPress 'T' to continue...", MainFont, 25);
 	sf::Text talk03_7("Wowwww! \nWhat would I do without you? ", MainFont, 25);
-	sf::Text talk03_8("Ha ha ha! \nI'm happy to help. ", MainFont, 25);
+	sf::Text talk03_8("Ha ha ha! \nI'm happy to help. \n\nPress 'Y' to continue...\n and then Press 'U' to keep item...", MainFont, 25);
+
+	talk01_1.setFillColor(sf::Color::Black);
+	talk01_2.setFillColor(sf::Color::Black);
+	talk01_3.setFillColor(sf::Color::Black);
+	talk01_4.setFillColor(sf::Color::Black);
+	talk01_5.setFillColor(sf::Color::Black);
+	talk01_6.setFillColor(sf::Color::Black);
+	talk01_7.setFillColor(sf::Color::Black);
+	talk01_8.setFillColor(sf::Color::Black);
+
+	talk02_1.setFillColor(sf::Color::Black);
+	talk02_2.setFillColor(sf::Color::Black);
+	talk02_3.setFillColor(sf::Color::Black);
+	talk02_4.setFillColor(sf::Color::Black);
+	talk02_5.setFillColor(sf::Color::Black);
+	talk02_6.setFillColor(sf::Color::Black);
+	talk02_7.setFillColor(sf::Color::Black);
+	talk02_8.setFillColor(sf::Color::Black);
+
+	talk03_1.setFillColor(sf::Color::Black);
+	talk03_2.setFillColor(sf::Color::Black);
+	talk03_3.setFillColor(sf::Color::Black);
+	talk03_4.setFillColor(sf::Color::Black);
+	talk03_5.setFillColor(sf::Color::Black);
+	talk03_6.setFillColor(sf::Color::Black);
+	talk03_7.setFillColor(sf::Color::Black);
+	talk03_8.setFillColor(sf::Color::Black);
 
 
 	//------------------------------------------------------------- Music & Sound ------------------------------------------------------------//
+	// sound rareitem
+	sf::SoundBuffer srareitem;
+	srareitem.loadFromFile("sound/rareitem3.wav");
+	sf::Sound soundRareitem;
+	soundRareitem.setBuffer(srareitem);
+
 	// sound crawl
 	sf::SoundBuffer ssoundCrawl;
 	ssoundCrawl.loadFromFile("sound/catCrawlEnemy.wav");
@@ -708,16 +741,6 @@ int main()
 					how2play = true;
 				}
 			}
-			else if (sf::Mouse::getPosition(window).x >= 23 && sf::Mouse::getPosition(window).y >= 647 &&
-				sf::Mouse::getPosition(window).x <= 75 && sf::Mouse::getPosition(window).y <= 689) {
-				window.draw(menu01_0);
-				window.draw(menu01_4);
-				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					click.play();
-					MENU = false;
-					setting = true;
-				}
-			}
 			else if (sf::Mouse::getPosition(window).x >= 997 && sf::Mouse::getPosition(window).y >= 637 &&
 				sf::Mouse::getPosition(window).x <= 1046 && sf::Mouse::getPosition(window).y <= 689) {
 				window.draw(menux01);
@@ -764,9 +787,21 @@ int main()
 					}
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+					click.play();
 					MENU = false;
 					enterName = false;
 					playGAME = true;
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home)) {
+					click.play();
+					MENU = true;
+					enterName = false;
+					playGAME = false;
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+					//click.play();
+					window.close();
+					break;
 				}
 
 				last_char = event.text.unicode;
@@ -862,8 +897,14 @@ int main()
 				}
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home))
-			{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home) /*|| 
+				sf::Mouse::getPosition(window).x >= 23 && sf::Mouse::getPosition(window).y >= 647 &&
+				sf::Mouse::getPosition(window).x <= 75 && sf::Mouse::getPosition(window).y <= 689*/) {
+				window.draw(menu01_0);
+				window.draw(menu01_4);
+				//window.draw(menux01);
+			
+				click.play();
 				//Soundch.play();
 				RANK = false;
 				MENU = true;
@@ -900,6 +941,7 @@ int main()
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home))
 			{
+				click.play();
 				//Soundch.play();
 				how2play = false;
 				MENU = true;
@@ -1276,6 +1318,7 @@ int main()
 				window.close();
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home) /* && sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) */) {
+				click.play();
 				pause = true;
 			}
 			if (pause == true) {
@@ -1523,11 +1566,13 @@ int main()
 						window.draw(talk01_8);
 					}
 					if (npc1 == 4) {
+						soundRareitem.play();
 						window.draw(rareItem1);
 					}
 				}
 			}
 			if (npc1 == 5) {
+				
 				window.draw(quest1);
 			}
 
@@ -1576,11 +1621,13 @@ int main()
 						window.draw(talk02_8);
 					}
 					if (npc2 == 4) {
+						soundRareitem.play();
 						window.draw(rareItem2);
 					}
 				}
 			}
 			if (npc2 == 5) {
+				
 				window.draw(quest2);
 			}
 			
@@ -1629,6 +1676,7 @@ int main()
 						window.draw(talk03_8);
 					}
 					if (npc3 == 4) {
+						soundRareitem.play();
 						window.draw(rareItem3);
 					}
 				}
