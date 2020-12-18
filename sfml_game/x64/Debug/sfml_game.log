@@ -1,38 +1,78 @@
 ﻿  main.cpp
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(56,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(468,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(469,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(470,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(471,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(472,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(474,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(475,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(476,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(477,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(478,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(480,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(483,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(484,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(485,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(486,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(488,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(489,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(490,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(491,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(492,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(494,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(502,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(503,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(505,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(506,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(514,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(515,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(516,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(517,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(616,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(852,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(855,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(1164,95): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(1171,97): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(612,8): warning C4101: 'counTime': unreferenced local variable
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(54,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(634,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(844,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(847,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(909,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(910,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(911,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(912,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(913,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(915,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(916,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(917,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(918,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(919,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(920,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(921,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(922,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(923,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(925,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(926,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(929,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(930,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(931,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(932,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(933,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(934,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(935,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(936,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(938,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(939,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(940,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(941,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(942,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(943,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(944,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(945,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(948,96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(949,96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(950,96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(951,96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(953,96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(954,96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(955,96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(956,96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(958,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(959,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(960,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(961,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(962,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(964,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(966,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(967,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(968,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(969,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(970,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(971,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(972,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(974,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(975,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(976,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(977,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(978,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(980,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(981,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(982,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(983,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(984,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(985,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(987,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(988,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(989,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(990,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(991,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(1330,95): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(1337,97): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\chura\source\repos\sfml_game\sfml_game\main.cpp(630,8): warning C4101: 'counTime': unreferenced local variable
   sfml_game.vcxproj -> C:\Users\chura\source\repos\sfml_game\x64\Debug\sfml_game.exe
