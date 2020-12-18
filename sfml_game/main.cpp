@@ -13,6 +13,7 @@
 #include "Item.h"
 #include "Time.h"
 
+// a lot of bugs in my game na ka!
 
 static const float View_HEIGHT = 720.0f;
 static const float View_WIDTH = 1080.0f;
@@ -84,11 +85,11 @@ int main()
 
 	sf::Text talk03_1("Bonjour, Mr. Magic!", MainFont, 25);
 	sf::Text talk03_2("Bonjour, Fila-kung! \nCan I help you?", MainFont, 25);
-	sf::Text talk03_3("Surely, Can you fix my bell collar? ", MainFont, 25);
+	sf::Text talk03_3("Surely? \nCan you fix my bell collar? ", MainFont, 25);
 	sf::Text talk03_4("Certainly, let you give \npieces of your collar to me! ", MainFont, 25);
 	sf::Text talk03_5("Here you are.", MainFont, 25);
 	sf::Text talk03_6("Great! Wait for a minute....\nFinished! ", MainFont, 25);
-	sf::Text talk03_7("Wowwww! What would I do without you? ", MainFont, 25);
+	sf::Text talk03_7("Wowwww! \nWhat would I do without you? ", MainFont, 25);
 	sf::Text talk03_8("Ha ha ha! \nI'm happy to help. ", MainFont, 25);
 
 
@@ -657,7 +658,7 @@ int main()
 					break;
 				}
 			}
-			view.setCenter(sf::Vector2f(540, 0));
+			//view.setCenter(sf::Vector2f(540, 0));
 
 			window.draw(menu01);
 			window.draw(menu01_0);
@@ -745,10 +746,10 @@ int main()
 
 			if (event.type == sf::Event::TextEntered && last_char != event.text.unicode)
 			{
-				if (event.text.unicode == 13) { // number of character
+				if (event.text.unicode == 13) { // ESC
 					userName = playerInput;
 					playerInput.clear();
-					MENU = true;
+					MENU = true; //edit?
 
 				}
 				else if (event.text.unicode == 8 && playerInput.getSize() > 0) { // backspace delete
@@ -809,10 +810,13 @@ int main()
 					break;
 				}
 			}
-
+			//view.setCenter(sf::Vector2f(view.getCenter().x - 540, -360));
+			printf("loop : %d..\n", Loop);
 			if (Loop == 0) {
-				view.setCenter(540, 0);
+
+				view.setCenter(sf::Vector2f(540, 360));
 			}
+
 			
 			// mouse position
 			sf::Vector2f mousePosition = sf::Vector2f(0.0f, 0.0f);
@@ -825,6 +829,7 @@ int main()
 			sf::Text text1("", MainFont);
 			text1.setCharacterSize(30);
 			text1.setFillColor(sf::Color::Black);
+
 			Opentext.open("text/highScore.txt");
 			do {
 				Opentext >> list;
@@ -839,21 +844,25 @@ int main()
 			beg--;
 			int currentDisplay = 0;
 			for (std::map<int, std::string>::iterator it = end; it != beg; it--) {
+				
+
 				text1.setString(it->second);
 				//text1.setPosition(view.getCenter().x - 170, 210 + 80 * currentDisplay);
-				text1.setPosition(view.getCenter().x - 170, 250 + 80 * currentDisplay);
+
+				text1.setPosition(view.getCenter().x - 170, -110 + 80 * currentDisplay);  //250
 				window.draw(text1);
 				text1.setString(std::to_string(it->first));
-				text1.setPosition(view.getCenter().x + 85, 250 + 80 * currentDisplay);
+				text1.setPosition(view.getCenter().x + 85, -110 + 80 * currentDisplay); //250
 				window.draw(text1);
 				currentDisplay++;
+
 				if (currentDisplay == 5)
 				{
 					break;
 				}
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home))
 			{
 				//Soundch.play();
 				RANK = false;
@@ -861,7 +870,9 @@ int main()
 				//scoreSound.stop();
 			}
 			window.display();
-		}		
+		}
+		
+				
 
 		while (how2play == true) {
 			sf::Event event;
@@ -883,11 +894,11 @@ int main()
 			mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 			printf("%f \t%f\n", mousePosition.x, mousePosition.y);
 
-			view.setCenter(sf::Vector2f(540, 0));
+			//view.setCenter(sf::Vector2f(540,-360));
 			window.draw(h2play);
 
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home))
 			{
 				//Soundch.play();
 				how2play = false;
@@ -1249,12 +1260,17 @@ int main()
 				if (warp2 == 0) {
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) { warp2 = 1; end.play(); }
 				}
-				if (warp2 == 1) {
-					//player.SetPosition(sf::Vector2f(25500.f, 275.f));
-					playGAME = false;
-					endGAME = true;
-				}
 			}
+			if (warp2 == 1) {
+				//player.SetPosition(sf::Vector2f(25500.f, 275.f));
+				playGAME = false;
+				RANK = false;
+				how2play = false;
+				MENU = false;
+				endOVER = false;
+				endGAME = true;
+			}
+
 			// pause //////////////////////////////////////
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) /* && sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) */) {
 				window.close();
@@ -1432,6 +1448,7 @@ int main()
 
 			for (int i = 0; i < itemVector.size(); i++) {
 				if (itemVector[i].GetCollider().CheckCollisions(playerCollision)) {
+					hpup.play();
 					myHP += 20000;
 					HP.setFillColor(sf::Color::Magenta);
 					HP.setSize(sf::Vector2f(myHP / 320.f, 25.f));
@@ -1650,6 +1667,7 @@ int main()
 				HP.setSize(sf::Vector2f(myHP / 320.f, 25.f));
 			}
 			if (endOVER == true) {
+				
 				gameover.setPosition(sf::Vector2f(view.getCenter().x - 540 , -360)); //////////////////////////////////////////////////edit center
 				window.draw(gameover);
 				//soundover.play();
@@ -1694,11 +1712,11 @@ int main()
 						RANK = false;
 						endOVER = false;
 						endGAME = false;
-						MENU = true;
+						MENU = true; //
 					}
 				}
 			}
-			if (endGAME == true) {
+			if (endGAME == true /*|| warp2 == 1*/) {
 				gameend.setPosition(sf::Vector2f(view.getCenter().x - 540, -400));
 				//gameend.setPosition(sf::Vector2f(PositionPlayerX - 540, 0));
 				window.draw(gameend);
@@ -1724,7 +1742,7 @@ int main()
 					sf::Mouse::getPosition(window).x <= 845 &&
 					sf::Mouse::getPosition(window).y <= 565*/ 1 == 1)
 				{
-					if (/*sf::Mouse::isButtonPressed(sf::Mouse::Left)*/ sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+					if (/*sf::Mouse::isButtonPressed(sf::Mouse::Left)*/ sf::Keyboard::isKeyPressed(sf::Keyboard::Home)) {
 						click.play();
 
 						std::vector<std::pair<int, std::string> > scoreText;
@@ -1745,7 +1763,7 @@ int main()
 						RANK = false;
 						endOVER = false;
 						endGAME = false;
-						MENU = true;
+						MENU = true; //
 					}
 				}
 			}
