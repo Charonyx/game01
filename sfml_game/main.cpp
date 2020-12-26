@@ -33,6 +33,13 @@ bool checkDraw = false;
 // player 
 int Loop = 0;
 
+int checkSound = 0;
+int checkSoundFullHP = 0;
+int checkSoundRareitem = 0;
+int checkSoundRareitem2 = 0;
+int checkSoundRareitem3 = 0;
+int checkSoundOver = 0;
+
 // menu
 bool MENU = true;
 bool playGAME = false;
@@ -43,6 +50,13 @@ bool endGAME = false;
 bool enterName = false;
 bool pause = false;
 bool endOVER = false;
+
+bool playSound = false;
+bool playSoundFullHP = false;
+bool playSoundRareitem = false;
+bool playSoundRareitem2 = false;
+bool playSoundRareitem3 = false;
+bool playSoundOver = false;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view)
 {
@@ -127,6 +141,18 @@ int main()
 	sf::Sound soundRareitem;
 	soundRareitem.setBuffer(srareitem);
 
+	// sound rareitem
+	sf::SoundBuffer srareitem2;
+	srareitem2.loadFromFile("sound/rareitem3.wav");
+	sf::Sound soundRareitem2;
+	soundRareitem2.setBuffer(srareitem2);
+	
+	// sound rareitem
+	sf::SoundBuffer srareitem3;
+	srareitem3.loadFromFile("sound/rareitem3.wav");
+	sf::Sound soundRareitem3;
+	soundRareitem3.setBuffer(srareitem3);
+
 	// sound crawl
 	sf::SoundBuffer ssoundCrawl;
 	ssoundCrawl.loadFromFile("sound/catCrawlEnemy.wav");
@@ -187,10 +213,45 @@ int main()
 	sf::Sound soundover;
 	soundover.setBuffer(sover);
 
+	// MUSIC ///////////////////////////////////////////////////////////////////////////
+	// sound MENU
+	sf::Music soundMenu;
+	soundMenu.openFromFile("sound/soundMenu.wav"); 
+	soundMenu.setLoop(true);
+	soundMenu.setVolume(50.f);
+	
+	// sound ENTERNAME
+	sf::Music soundEntername;
+	soundEntername.openFromFile("sound/soundEntername.wav"); 
+	soundEntername.setLoop(true);
+	soundEntername.setVolume(30.f);
 
-	// sound 
+	// sound PLAYGAME
+	sf::Music soundPlaygame;
+	soundPlaygame.openFromFile("sound/soundPlaygame.wav"); 
+	soundPlaygame.setLoop(true);
+	soundPlaygame.setVolume(50.f);
+	
+	// sound RANK
+	sf::Music soundRank;
+	soundRank.openFromFile("sound/soundRank.wav"); 
+	soundRank.setLoop(true);
+	soundRank.setVolume(65.f);
+	
+	// sound HOW2PLAY
+	sf::Music soundHowtoplay;
+	soundHowtoplay.openFromFile("sound/soundHow2play.wav"); 
+	soundHowtoplay.setLoop(true);
+	soundHowtoplay.setVolume(65.f);
 
-	// MENU //////////////////////////
+	// sound TALK
+	sf::Music soundTalk;
+	soundTalk.openFromFile("sound/soundTalk.wav"); 
+	soundTalk.setLoop(true);
+	soundTalk.setVolume(40.f);
+
+
+	// MENU ////////////////////////////////////////////////////////////
 	// MENU unpressed
 	sf::RectangleShape menu01(sf::Vector2f(0, 0));
 	sf::Texture menu;
@@ -469,9 +530,6 @@ int main()
 	rareItem3.setTexture(&rare3);
 	rareItem3.setSize(sf::Vector2f(1080.0f, 720.0f));
 
-
-
-
 	//if (player.GetPosition().x <= 0)
 	//{
 	//	if (player.GetPosition().x >= x)
@@ -661,6 +719,8 @@ int main()
 	sf::Clock cl;			// hit enemy
 	sf::Clock timercoli;	// check player blink
 	sf::Clock clTalk;		// NPC talk
+	sf::Clock fullhpbar;	// HP FULL BAR
+	sf::Clock timeRareitem;	// Rareitem
 	float counTime;			// enter name
 	float timeTalk = 0;
 
@@ -675,9 +735,12 @@ int main()
 		//	deltaTime = 1.0f / 20.0f;
 		
 		//view.setCenter(sf::Vector2f(540, 0));
-
+		if (MENU == true) {
+			soundMenu.play();
+		}
 		while (MENU == true)
 		{
+			//soundMenu.play();
 			sf::Event event;
 			while (window.pollEvent(event))
 			{
@@ -718,7 +781,8 @@ int main()
 					MENU = false;
 					playGAME = false;
 					enterName = true;
-					
+					soundMenu.stop();
+					soundEntername.play();
 				}
 			}
 			else if (sf::Mouse::getPosition(window).x >= 380 && sf::Mouse::getPosition(window).y >= 380 &&
@@ -729,6 +793,8 @@ int main()
 					click.play();
 					MENU = false;
 					RANK = true;
+					soundMenu.stop();
+					soundRank.play();
 				}
 			}
 			else if (sf::Mouse::getPosition(window).x >= 380 && sf::Mouse::getPosition(window).y >= 485 &&
@@ -739,6 +805,8 @@ int main()
 					click.play();
 					MENU = false;
 					how2play = true;
+					soundMenu.stop();
+					soundHowtoplay.play();
 				}
 			}
 			else if (sf::Mouse::getPosition(window).x >= 997 && sf::Mouse::getPosition(window).y >= 637 &&
@@ -773,7 +841,6 @@ int main()
 					userName = playerInput;
 					playerInput.clear();
 					MENU = true; //edit?
-
 				}
 				else if (event.text.unicode == 8 && playerInput.getSize() > 0) { // backspace delete
 					playerInput = playerInput.substring(0, playerInput.getSize() - 1);
@@ -791,12 +858,15 @@ int main()
 					MENU = false;
 					enterName = false;
 					playGAME = true;
+					soundEntername.stop();
+					soundPlaygame.play();
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home)) {
 					click.play();
 					MENU = true;
 					enterName = false;
 					playGAME = false;
+					soundEntername.stop();
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 					//click.play();
@@ -851,7 +921,6 @@ int main()
 
 				view.setCenter(sf::Vector2f(540, 360));
 			}
-
 			
 			// mouse position
 			sf::Vector2f mousePosition = sf::Vector2f(0.0f, 0.0f);
@@ -905,10 +974,9 @@ int main()
 				//window.draw(menux01);
 			
 				click.play();
-				//Soundch.play();
 				RANK = false;
 				MENU = true;
-				//scoreSound.stop();
+				soundRank.stop();
 			}
 			window.display();
 		}
@@ -942,10 +1010,9 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home))
 			{
 				click.play();
-				//Soundch.play();
 				how2play = false;
 				MENU = true;
-				//scoreSound.stop();
+				soundHowtoplay.stop();
 			}
 			window.display();
 		}
@@ -956,92 +1023,93 @@ int main()
 		myHP = 78000;
 		talk1 = 0, talk2 = 0, talk3 = 0;
 		npc1 = 0, npc2 = 0, npc3 = 0;
+		warp1 = 0, warp2 = 0;
 		//HP.setFillColor(sf::Color::Magenta);
 		HP.setSize(sf::Vector2f(myHP / 320.f, 25.0f));
 
 		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 2400, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 2800, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 1200, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 1600, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 2000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 2800, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 1200, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 1600, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 2000, 275));
 
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 5000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 6000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 5500, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 8000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 7000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 7500, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 8500, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 9000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 9000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 5000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 6000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 5500, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 8000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 7000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 7500, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 8500, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 9000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 9000, 275));
 
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 7000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 8500, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 7000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 8500, 275));
 	
 
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 17000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 16000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 15500, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 18000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 17000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 17500, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 18500, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 19000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 17000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 16000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 15500, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 18000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 17000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 17500, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 18500, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1500 + 19000, 275));
 
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 17000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 16000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 15500, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 18000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1000 + 17000, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 17500, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 18500, 275));
-	enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 19000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 17000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 16000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 15500, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 18000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 1000 + 17000, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 17500, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 18500, 275));
+		enemyVector.push_back(Enemy(&enemy_texture, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 19000, 275));
 
-	// ENEMY2
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 5800, 275));
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 6200, 275));
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 7600, 275));
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 8000, 275));
+		// ENEMY2
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 5800, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 6200, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 7600, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 8000, 275));
 
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 15800, 275));
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 16200, 275));
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 17600, 275));
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 18000, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 15800, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 16200, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 17600, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 2500 + 18000, 275));
 	
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 15000, 275));
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 16000, 275));
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 15500, 275));
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 18000, 275));
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 17000, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 15000, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 16000, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 15500, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 18000, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 17000, 275));
 	
-	enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 17000, 275));
+		enemy2Vector.push_back(Enemy(&enemy_texture2, sf::Vector2u(3, 2), 0.2f, 300.0f, rand() % 500 + 17000, 275));
 
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 2000, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 3000, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 4000, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 8000, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 9000, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 11000, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 8000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 2000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 3000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 4000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 8000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 9000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 11000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 8000, 275));
 
-	itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 2400, 275));
-	itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 3000, 275));
-	itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 500 + 6000, 275));
-	itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 500 + 7800, 275));
-	itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 7800, 275));
+		itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 2400, 275));
+		itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 3000, 275));
+		itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 500 + 6000, 275));
+		itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 500 + 7800, 275));
+		itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 7800, 275));
 
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 16000, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 17000, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 14000, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 15000, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 16500, 275));
-	item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 17000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 16000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 17000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 14000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 15000, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 16500, 275));
+		item2Vector.push_back(Item(&item02, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 17000, 275));
 
-	itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 18400, 275));
-	itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 17000, 275));
-	itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 500 + 16000, 275));
-	itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 500 + 20000, 275));
-	itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 16000, 275));
+		itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 18400, 275));
+		itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 17000, 275));
+		itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 500 + 16000, 275));
+		itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 500 + 20000, 275));
+		itemVector.push_back(Item(&item01, sf::Vector2u(1, 1), 0.2f, rand() % 1500 + 16000, 275));
 
 		while (playGAME == true) {
 
@@ -1113,7 +1181,8 @@ int main()
 			quest2.setPosition(sf::Vector2f(view.getCenter().x - 540.0f, -360.0f));
 			quest3.setPosition(sf::Vector2f(view.getCenter().x - 540.0f, -360.0f));
 
-
+			gameend.setPosition(sf::Vector2f(view.getCenter().x - 540, -400));
+			gameover.setPosition(sf::Vector2f(view.getCenter().x - 540, -360));
 			// check collider
 			//Collider itemCollision = item.GetCollider();
 			Collider enemyCollision = enemy.GetCollider();
@@ -1133,7 +1202,7 @@ int main()
 				sprawn.y = 0;
 			}
 
-			if (endGAME == false && endOVER == false) {
+			if (endOVER == false) {
 
 				player.Update(deltaTime);
 				//Player player = player;
@@ -1172,6 +1241,8 @@ int main()
 					}
 				}
 				if (talk1 == 1) {
+					//soundPlaygame.stop();
+					//soundTalk.play();
 					//printf("1234567 %f %d\n", timeTalk, npc1);
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && timeTalk > 1.0f) {
 						//printf("yahoo %f %d\n", timeTalk, npc1);
@@ -1201,7 +1272,7 @@ int main()
 					}
 				}
 			}
-			else { talk1 = 0; }
+			else { talk1 = 0; } // soundTalk.stop(); soundPlaygame.play();
 			
 			// storyTalk NPC2
 			if (PositionPlayerX >= 9650 && PositionPlayerX <= 9900)
@@ -1300,18 +1371,21 @@ int main()
 			}
 			if (PositionPlayerX >= 22360 - warpdis && PositionPlayerX <= 22660 - warpdis) {
 				if (warp2 == 0) {
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) { warp2 = 1; end.play(); }
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) { warp2 = 1; playSound = true;
+					//endGAME = true;
+					endOVER = true; /*end.play();*/ }
 				}
 			}
-			if (warp2 == 1) {
+			/*if (warp2 == 1) {
 				//player.SetPosition(sf::Vector2f(25500.f, 275.f));
-				playGAME = false;
+				/*playGAME = false;
 				RANK = false;
 				how2play = false;
-				MENU = false;
-				endOVER = false;
-				endGAME = true;
-			}
+				MENU = false;			
+				playSound = true;
+				//endGAME = true;
+				endOVER = true;
+			}*/
 
 			// pause //////////////////////////////////////
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) /* && sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt) */) {
@@ -1324,13 +1398,18 @@ int main()
 			if (pause == true) {
 				MENU = true;
 				playGAME = false;
+				soundPlaygame.stop();
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)) {
 				myHP = 78000;
 				HP.setSize(sf::Vector2f(myHP / 320.f, 25));
-				fullhp.play();
+				if (fullhpbar.getElapsedTime().asSeconds() >= 1) {
+					fullhp.play();
+					fullhpbar.restart();
+				}
 			}
+	
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
 				//enemy hit 0 hp
 			}
@@ -1340,7 +1419,7 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::J)) {
 				soundCrawl.play();
 			}
-				window.clear();
+			window.clear();
 			//		window.clear(sf::Color(170, 237, 202));
 
 			window.draw(bg01);
@@ -1507,7 +1586,6 @@ int main()
 			}*/
 
 
-
 			for (Platform2& platVector : platforms2)
 				if (platVector.GetCollider().CheckCollision(playerCollision, direction, 1.0f))
 					player.OnCollision(direction);
@@ -1529,6 +1607,7 @@ int main()
 					window.draw(msgToTalk);
 				}
 				if (talk1 == 1) {
+					playSoundRareitem = true;
 					printf("%d\n", npc1);
 					msgBoxPlayer.setPosition(sf::Vector2f(msgPX, msgPY));
 					msgBoxNPC1.setPosition(sf::Vector2f(msgNX, msgNY));
@@ -1566,14 +1645,20 @@ int main()
 						window.draw(talk01_8);
 					}
 					if (npc1 == 4) {
-						soundRareitem.play();
+						if (playSoundRareitem == true) {
+							for (; checkSoundRareitem < 1; checkSoundRareitem++) {
+								soundRareitem.play();
+							}
+						}
+						//soundRareitem.play();
 						window.draw(rareItem1);
 					}
 				}
 			}
-			if (npc1 == 5) {
-				
+			if (npc1 == 5) {	
 				window.draw(quest1);
+				playSoundRareitem = false;
+				checkSoundRareitem = 0;
 			}
 
 
@@ -1621,14 +1706,20 @@ int main()
 						window.draw(talk02_8);
 					}
 					if (npc2 == 4) {
-						soundRareitem.play();
+						if (playSoundRareitem2 == true) {
+							for (; checkSoundRareitem2 < 1; checkSoundRareitem2++) {
+								soundRareitem2.play();
+							}
+						}
+						//soundRareitem.play();
 						window.draw(rareItem2);
 					}
 				}
 			}
-			if (npc2 == 5) {
-				
+			if (npc2 == 5) {	
 				window.draw(quest2);
+				playSoundRareitem2 = false;
+				checkSoundRareitem2 = 0;
 			}
 			
 
@@ -1676,13 +1767,20 @@ int main()
 						window.draw(talk03_8);
 					}
 					if (npc3 == 4) {
-						soundRareitem.play();
+						if (playSoundRareitem3 == true) {
+							for (; checkSoundRareitem3 < 1; checkSoundRareitem3++) {
+								soundRareitem3.play();
+							}
+						}
+						//soundRareitem.play();
 						window.draw(rareItem3);
 					}
 				}
 			}
 			if (npc3 == 5) {
 				window.draw(quest3);
+				playSoundRareitem3 = false;
+				checkSoundRareitem3 = 0;
 			}
 
 			// msg to wrap
@@ -1703,22 +1801,39 @@ int main()
 				}
 			}
 
-
 			if (myHP < 0.0f) {
 				myHP = 0;
 				endOVER = true;
-				
+				playSoundOver = true;
 			}
+			
 			if (myHP > 78000.0f) {
 				myHP = 78000.0f;
 				HP.setFillColor(sf::Color::Magenta);
 				HP.setSize(sf::Vector2f(myHP / 320.f, 25.f));
 			}
+
 			if (endOVER == true) {
+
+				if (warp2 == 1 && myHP > 0) {
+					window.draw(gameend);
+					soundPlaygame.stop();
+					if (playSound == true) {
+						for (; checkSound < 1; checkSound++) {
+							end.play();
+						}
+					}
+				}
 				
-				gameover.setPosition(sf::Vector2f(view.getCenter().x - 540 , -360)); //////////////////////////////////////////////////edit center
-				window.draw(gameover);
-				//soundover.play();
+				if (myHP <= 0) {
+					window.draw(gameover);
+					soundPlaygame.stop();
+					if (playSoundOver == true) {
+						for (; checkSoundOver < 1; checkSoundOver++) {
+							soundover.play();
+						}
+					}
+				}
 
 				// SHOW SCORE 
 				scoreText.setCharacterSize(30);
@@ -1735,40 +1850,39 @@ int main()
 				nameText.setPosition(sf::Vector2f(view.getCenter().x -540.0f, -120.0f)); ///////// edit here
 				window.draw(nameText);
 
-				if (/*sf::Mouse::getPosition(window).x >= 525 &&
-					sf::Mouse::getPosition(window).y >= 475 &&
-					sf::Mouse::getPosition(window).x <= 845 &&
-					sf::Mouse::getPosition(window).y <= 565)*/ 1 == 1)
-				{
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home)/*sf::Mouse::isButtonPressed(sf::Mouse::Left)*/) {
-						click.play();
-						std::vector<std::pair<int, std::string> > scoreText;
-						std::string temp, tempString;
-						int tempInt = 0, X = 1;
-						while (window.pollEvent(event))
-						{
-							if (event.type == sf::Event::Closed)
-								window.close();
-							fileWriter.open("text/highScore.txt", std::ios::out | std::ios::app);
-							fileWriter << "\n" << userName << "," << score;
-							fileWriter.close();
-							playerInput.clear();
-						}
-						adminFile.close();
-						playGAME = false;
-						//part1Sound.stop();
-						RANK = false;
-						endOVER = false;
-						endGAME = false;
-						MENU = true; //
+				
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home)/*sf::Mouse::isButtonPressed(sf::Mouse::Left)*/) {
+
+					click.play();
+					std::vector<std::pair<int, std::string> > scoreText;
+					std::string temp, tempString;
+					int tempInt = 0, X = 1;
+					while (window.pollEvent(event))
+					{
+						if (event.type == sf::Event::Closed)
+							window.close();
+						fileWriter.open("text/highScore.txt", std::ios::out | std::ios::app);
+						fileWriter << "\n" << userName << "," << score;
+						fileWriter.close();
+						playerInput.clear();
 					}
+					adminFile.close();
+					RANK = false;
+					endOVER = false;
+					endGAME = false;
+					MENU = true; //
+					playGAME = false;
+					soundPlaygame.stop();
 				}
+				
 			}
-			if (endGAME == true /*|| warp2 == 1*/) {
-				gameend.setPosition(sf::Vector2f(view.getCenter().x - 540, -400));
+
+			/*if (endGAME == true || warp2 == 1) 
+				}
+				//gameend.setPosition(sf::Vector2f(view.getCenter().x - 540, -400));
 				//gameend.setPosition(sf::Vector2f(PositionPlayerX - 540, 0));
-				window.draw(gameend);
-				end.play();
+				//window.draw(gameend);
+				//end.play();
 
 				// SHOW SCORE 
 				scoreText.setCharacterSize(30);
@@ -1785,12 +1899,8 @@ int main()
 				nameText.setPosition(sf::Vector2f(view.getCenter().x - 540.0f, -120.0f)); ///////// edit here
 				window.draw(nameText);
 
-				if (/*sf::Mouse::getPosition(window).x >= 525 &&
-					sf::Mouse::getPosition(window).y >= 475 &&
-					sf::Mouse::getPosition(window).x <= 845 &&
-					sf::Mouse::getPosition(window).y <= 565*/ 1 == 1)
-				{
-					if (/*sf::Mouse::isButtonPressed(sf::Mouse::Left)*/ sf::Keyboard::isKeyPressed(sf::Keyboard::Home)) {
+				
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
 						click.play();
 
 						std::vector<std::pair<int, std::string> > scoreText;
@@ -1813,8 +1923,7 @@ int main()
 						endGAME = false;
 						MENU = true; //
 					}
-				}
-			}
+				}*/
 
 			// edit here
 			menu01.setPosition(view.getCenter().x - 540, -360);
@@ -1836,11 +1945,16 @@ int main()
 			last_char = event.text.unicode;
 			text.setString(playerInput);
 			Keyname.setPosition(view.getCenter().x - 100 , 170);//240, 500);
-			text.setPosition(view.getCenter().x - 15, 150);// - 15, 535.0f);
+			text.setPosition(view.getCenter().x - 15, 150);// - 15, 535.0f);*/
 			window.display();
 		}
+		
 		pause = false;
 		Loop++;
+		//endGAME = false;
+		endOVER = false;
+		//endGAME = false;
+
 		player.SetPosition(sf::Vector2f(200, -275));
 
 		for (int i = 0; i < enemyVector.size(); i++) {
@@ -1863,5 +1977,6 @@ int main()
 		}
 		item2Vector.clear();
 	}
+
 	return 0;
 }
