@@ -1,0 +1,68 @@
+  /////////////////////////////
+        while (MemScore == true) {
+                      
+            counTime += deltaTime;
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                switch (event.type)
+                {
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                }
+            }
+              
+            if (event.type == sf::Event::TextEntered && last_char != event.text.unicode)
+            {  
+                if (event.text.unicode == 13) { //enter
+                    userName = playerInput;
+                    playerInput.clear();
+                    menu = true;
+                   
+                }
+                else if (event.text.unicode == 8 && playerInput.getSize() > 0) { // backspace delete
+                    playerInput = playerInput.substring(0, playerInput.getSize() - 1);
+                }
+                else {
+                    if (playerInput.getSize() < 10) {
+                        if (counTime > 0.2) {
+                            playerInput += event.text.unicode;
+                            counTime = 0;
+                        }
+                    }
+                }
+                if (Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                    menu = false;
+                    SCore_li = false;
+                    MemScore = false;
+                    start = true;
+                    part1Sound.play();                    
+                    mainSound.stop();
+                    
+                }
+
+                last_char = event.text.unicode;
+                text.setString(playerInput);
+                cursor.setPosition(545.0f + text.getGlobalBounds().width + 10, 555.0f);
+            }
+            else if (event.type == Event::EventType::KeyReleased && last_char != ' ') {
+                last_char = ' ';
+            }
+            window.clear();
+            //window.draw(key);
+            window.draw(addName);
+            window.draw(Keyname);
+
+            totalTime_cursor += clock_cursor.restart().asSeconds();
+            if (totalTime_cursor >= 0.5) {
+                totalTime_cursor = 0;
+                state_cursor = !state_cursor;
+            }
+            if (state_cursor == true) {
+
+                window.draw(cursor);
+            }
+            window.draw(text);
+
+            window.display();
+        }
